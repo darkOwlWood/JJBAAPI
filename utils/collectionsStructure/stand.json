@@ -1,0 +1,36 @@
+{
+    "id": "",
+    "name": "",
+    "namesake": "",
+    "user":  {
+        "name":"",
+        "url":""
+    },
+    "image": "",
+    "abilities": [],
+    "type":[
+        {
+            "name":"",
+            "url":""
+        }
+    ],
+    "alternative_forms":[
+        {
+            "name":"",
+            "url":""
+        }
+    ],
+    "stats": {
+        "destructive_power": "",
+        "speed": "",
+        "range": "",
+        "power_persistence": "",
+        "precision": "",
+        "developmental_potential": ""
+    },
+    "episodes_aparence":[
+
+    ],
+    "url": "",
+    "created": ""
+}

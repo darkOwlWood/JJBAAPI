@@ -1,0 +1,147 @@
+[
+
+    {
+        "name": "Start Platinum",
+        "namesake": "The start tarod Card No.17",
+        "user":  "Jotaro Kujo",
+        "first_aparence": "Star Dust Crusaders",
+        "image": "https://static.jojowiki.com/images/2/2d/latest/20191218071351/Star_Platinum_SC_Infobox_Manga.png",
+        "abilities": [
+            "Super Strength",
+            "Super Speed",
+            "Precision",
+            "Enhanced Eyesight",
+            "Enhanced Breath",
+            "Enhanced Durability",
+            "Ora Ora rush",
+            "Star Finger"
+        ],
+        "type":[
+            {
+                "_id":"",
+                "name":"Close-Range"
+            },
+            {
+                "_id":"",
+                "name":"Reconnaissance"
+            },
+            {
+                "_id":"",
+                "name":"Natural Humanoid"
+            }
+        ],
+        "stats": [
+            {
+                "part": "Start Dust Crusaders",
+                "properties":{
+                    "destructive_power": "A",
+                    "speed": "A",
+                    "range": "C",
+                    "power_persistence": "A",
+                    "precision": "A",
+                    "developmental_potential": "A"
+                }
+            }
+        ],
+        "episodes_aparence":[
+            {
+                "part": "Start Dust Crusaders",
+                "episodes":[
+                    "1: A Man Possessed by an Evil Spirit"
+                    ,"2: Who Will Be the Judge!?"
+                    ,"3: DIO's Curse"
+                    ,"4: Tower of Gray"
+                    ,"5: Silver Chariot"
+                    ,"6: Dark Blue Moon"
+                    ,"7: Strength"
+                    ,"9: Yellow Temperance"
+                    ,"13: Wheel of Fortune"
+                    ,"15: Justice, Part 2"
+                    ,"16: Lovers, Part 1"
+                    ,"17: Lovers, Part 2"
+                    ,"18: Sun"
+                    ,"23: High Priestess, Part 1"
+                    ,"24: High Priestess, Part 2"
+                    ,"25: \"The Fool\" Iggy and \"Geb\" N'Doul, Part 1"
+                    ,"26: \"The Fool\" Iggy and \"Geb\" N'Doul, Part 2"
+                    ,"29: Anubis, Part 2"
+                    ,"33: \"Sethan\" Alessi, Part 2"
+                    ,"35: D'Arby the Gambler, Part 2"
+                    ,"37: Hol Horse and Boingo, Part 2"
+                    ,"40: D'Arby the Player, Part 1"
+                    ,"41: D'Arby the Player, Part 2"
+                    ,"42: The Miasma of the Void, Vanilla Ice, Part 1"
+                    ,"44: The Miasma of the Void, Vanilla Ice, Part 3"
+                    ,"45: DIO's World, Part 1"
+                    ,"46: DIO's World, Part 2"
+                    ,"47: DIO's World, Part 3"
+                    ,"48: The Faraway Journey, Farewell Friends"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Magician's Red",
+        "namesake": "The Magician tarod Card No.1",
+        "user":  "Muhammad Avdol",
+        "first_aparence": "Star Dust Crusaders",
+        "image": "https://static.jojowiki.com/images/4/48/latest/20191015214312/Magician%27s_Red_Infobox_Anime.png",
+        "abilities": [
+            "manipulate fire",
+            "physically powerful",
+            "Cross Fire Hurricane",
+            "Cross Fire Hurricane Special",
+            "Red Rough Rope",
+            "Life Detector"
+        ],
+        "type":[
+            {
+                "_id":"",
+                "name":"Close-Range"
+            },
+            {
+                "_id":"",
+                "name":"Reconnaissance"
+            },
+            {
+                "_id":"",
+                "name":"Natural Humanoid"
+            }
+        ],
+        "stats": [
+            {
+                "part": "Start Dust Crusader",
+                "properties":{
+                    "destructive_power": "B",
+                    "speed": "B",
+                    "range": "C",
+                    "power_persistence": "B",
+                    "precision": "C",
+                    "developmental_potential": "D"
+                }
+
+            }
+        ],
+        "episodes_aparence":[
+            {
+                "part": "Start Dust Crusaders",
+                "episodes":[
+                     "1: A Man Possessed by an Evil Spirit"
+                    ,"2: Who Will Be the Judge!? (Flashback)"
+                    ,"3: DIO's Curse"
+                    ,"4: Tower of Gray"
+                    ,"5: Silver Chariot"
+                    ,"6: Dark Blue Moon"
+                    ,"10: Emperor and Hanged Man, Part 1"
+                    ,"22: Judgement, Part 2"
+                    ,"23: High Priestess, Part 1"
+                    ,"24: High Priestess, Part 2"
+                    ,"26: \"The Fool Iggy and \"Geb\" N'Doul, Part 2"
+                    ,"31: \"Bastet\" Mariah, Part 2"
+                    ,"32: \"Sethan\" Alessi, Part 1"
+                    ,"42: The Miasma of the Void, Vanilla Ice, Part 1"
+                ]
+            }
+        ]
+    }
+]
