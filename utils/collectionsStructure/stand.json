@@ -1,11 +1,11 @@
 {
-    "id": "",
+    "id_": "",
     "name": "",
     "namesake": "",
-    "user":  {
+    "user": [{
         "name":"",
         "url":""
-    },
+    }],
     "image": "",
     "abilities": [],
     "type":[
@@ -31,6 +31,6 @@
     "episodes_aparence":[
 
     ],
-    "url": "",
-    "created": ""
+    "url_": "",
+    "created_": ""
 }

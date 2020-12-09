@@ -1,0 +1,21 @@
+{
+    "id":"",
+    "name":"",
+    "namesake":"",
+    "genre":"",
+    "specie":"",
+    "age":"",
+    "birthday":"",
+    "image":"",
+    "nacionality":[],
+    "abilities":[],
+    "stands":[
+        {
+            "name":"",
+            "url":""
+        }
+    ],
+    "episodes_aparence":[],
+    "url_":"",
+    "created_":""
+}

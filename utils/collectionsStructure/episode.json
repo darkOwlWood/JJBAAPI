@@ -1,14 +1,21 @@
 {
-    "id": "",
+    "id_": "",
     "name": "",
+    "code": "",
     "air_date": "",
-    "episode": "",
     "sinopsis": "",
-    "part":{
+    "anime":{
         "name":"",
-        "url":""
+        "part":"",
+        "code":"",
+        "studio":"",
+        "genre":[],
+        "description":"",
+        "first_aired": "",
+        "last_aired": "",
+        "episodes_released": ""
     },
     "characters": [],
-    "url":"",
-    "created": ""
+    "url_":"",
+    "created_": ""
 }
