@@ -46,7 +46,7 @@ class StandController{
     }
 
     async updateStand(req, res, next){
-        const { body,  params:{ id } } = req;
+        const { body,  params: { id } } = req;
         try{
             const updatedId = await this.standsService.updateStand(id, body);
             res.status(200).json(updatedId);

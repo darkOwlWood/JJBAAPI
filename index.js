@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const { standRouter } = require('./routes/StandsRoute');
+const { standRoute } = require('./routes/StandsRoute');
+const { charactersRoute } = require('./routes/CharactersRoute');
 const { logErrors, wrapErrors, errorHandler } = require('./utils/middleware/errorHandler');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
 const { config } = require('./config');
@@ -11,7 +12,8 @@ const { config } = require('./config');
 app.use(bodyParser.json());
 
 //ROUTES
-standRouter(app);
+standRoute(app);
+charactersRoute(app);
 
 //NOT FOUND
 app.use(notFoundHandler);

@@ -5,7 +5,7 @@ const { getStandById, createStandSchema, updateStandSchema } = require('../model
 const StandController = require('../controllers/StandsController');
 const standController = new StandController();
 
-const  standRouter = (app) => {
+const  standRoute = (app) => {
     app.use('/stands',router);
 
     router.get('/',standController.getAllStands);
@@ -15,4 +15,4 @@ const  standRouter = (app) => {
     router.delete('/:id',validateSchema(getStandById,'params'),standController.deleteStand);
 }
 
-module.exports = { standRouter }
+module.exports = { standRoute }

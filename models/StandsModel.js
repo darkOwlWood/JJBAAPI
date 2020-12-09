@@ -20,6 +20,10 @@ const standEpisodesAparence  = Joi.array().items(Joi.string());
 // const standUrl              = Joi.string();
 // const standCreated          = Joi.string();
 
+const getStandById = Joi.object({
+    id: Joi.string().pattern(new RegExp(/^(\d+|\[\d+(,\d+)*\]|\d+(,\d+)*)$/))
+});
+
 const createStandSchema = Joi.object({
     name:               standName.required()
     ,namesake:          standNamesake.required()
@@ -42,10 +46,6 @@ const updateStandSchema = Joi.object({
     ,alternative_forms: standAlternativeForms
     ,stats:             standStats           
     ,episodes_aparence: standEpisodesAparence         
-});
-
-const getStandById = Joi.object({
-    id: Joi.string().pattern(new RegExp(/^(\d+|\[\d+(,\d+)*\]|\d+(,\d+)*)$/))
 });
 
 module.exports = {
