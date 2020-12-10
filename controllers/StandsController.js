@@ -2,6 +2,7 @@ const StandsService = require('../services/StandsService');
 
 class StandController{
     constructor(){
+        this.route = 'stands';
         this.standsService = new StandsService();
         this.init();
     }
@@ -27,7 +28,7 @@ class StandController{
     async getAllStands(req, res, next){
         const { query, protocol } = req;
         try{
-            const url = `${protocol}://${req.get('host')}`;
+            const url = `${protocol}://${req.get('host')}/${this.route}`;
             const standsDataArray = await this.standsService.getAllMatchesInPage(url,query);
             res.json(standsDataArray);
         }catch(err){

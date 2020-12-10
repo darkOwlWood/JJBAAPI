@@ -4,6 +4,7 @@ const app = express();
 
 const { standRoute } = require('./routes/StandsRoute');
 const { charactersRoute } = require('./routes/CharactersRoute');
+const { EpisodesRoute } = require('./routes/EpisodesRoute');
 const { logErrors, wrapErrors, errorHandler } = require('./utils/middleware/errorHandler');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
 const { config } = require('./config');
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 //ROUTES
 standRoute(app);
 charactersRoute(app);
+EpisodesRoute(app);
 
 //NOT FOUND
 app.use(notFoundHandler);
