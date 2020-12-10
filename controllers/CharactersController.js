@@ -2,6 +2,7 @@ const CharactersService = require('../services/CharactersService');
 
 class CharactersController{
     constructor(){
+        this.route = 'characters';
         this.charactersService = new CharactersService();
         this.init();
     }
@@ -27,7 +28,7 @@ class CharactersController{
     async getAllCharacters(req, res, next){
         const { query, protocol } = req;
         try{
-            const url = `${protocol}://${req.get('host')}`;
+            const url = `${protocol}://${req.get('host')}/${this.route}`;
             const characterDataArray = await this.charactersService.getAllMatchesInPage(url,query);
             res.json(characterDataArray);
         }catch(err){

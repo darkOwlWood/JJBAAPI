@@ -1,5 +1,5 @@
 const MongoLib = require('../lib/mongo');
-const { config } = require('../config');
+const { config } = require('../config/');
 const PAGE_SIZE = parseInt(config.pageSize);
 
 class EpisodesService{
@@ -15,33 +15,10 @@ class EpisodesService{
         return episodeData;
     }
 
-    async getAllMatchesInPage(url,query = {}){
-        let {page, name, episode, anime, part, code} = query;
-        let prepareQuery = {};
+    async getAllMatchesInPage(baseUrl,query = {}){
+        const { page, prepareQuery } = this.prepareMongoQuery(query);
+        const pageResults = await this.getPaginateAnswer(page, baseUrl, query, prepareQuery);
 
-        page = (page && page>1)? page : 1;
-        name && (prepareQuery.name = new RegExp(`^${name}.*`));
-        episode && (prepareQuery.code = episode);
-        anime && (prepareQuery['anime.name'] = anime);
-        part && (prepareQuery['anime.part'] = part);
-        code && (prepareQuery['anime.code'] = code);
-
-        //---
-        const episodesDataArray = await this.client.getAllMatchesInPage(this.collection,prepareQuery,page-1);
-        const count = await this.getTotalEpisodes(prepareQuery);
-        const next = (count-(this.pageSize*page))>0? `${url}/${this.collection}${this.ObjectToQueryString(prepareQuery)}&page=${page+1}` : null;
-        const prev = (page===1)? null : `${url}/${this.collection}${this.ObjectToQueryString(prepareQuery)}&page=${page-1}`;
-        const pageResults = {
-            "info":{
-                "count": count,
-                "pages": Math.ceil(count/this.pageSize),
-                next,
-                prev,
-            },
-            "reults": episodesDataArray,
-        }
-        //---
-        
         return pageResults;
     }
 
@@ -66,18 +43,58 @@ class EpisodesService{
         return totalEpisodes;
     }
 
-    lowerCamelCaseToSnakeCase(string){
-        return string
-                .split(/([A-Z])/)
-                .map( val => /^[A-Z]$/.test(val)? `_${val.toLowerCase()}` : val )
-                .join('');
+    prepareMongoQuery(query){
+        let {page, name, episode, anime, part, code} = query;
+        let prepareQuery = {};
+
+        page = (page && page>1)? page : 1;
+        name && (prepareQuery.name = new RegExp(`^${name}.*`));
+        episode && (prepareQuery.code = episode);
+        anime && (prepareQuery['anime.name'] = anime);
+        part && (prepareQuery['anime.part'] = part);
+        code && (prepareQuery['anime.code'] = code);
+
+        return { page, prepareQuery };
     }
 
-    ObjectToQueryString(ObjectQuery){
-        return `?${Object
-                    .keys(ObjectQuery)
-                    .map( (key) => `${key}=${ObjectQuery[key]}`)
-                    .join('&')}`;
+    async getPaginateAnswer(page, baseUrl, query, prepareQuery){
+        let pageResults = {};
+        const count = await this.getTotalEpisodes(prepareQuery);
+        const pages = Math.ceil(count/this.pageSize);
+
+        if(page<=pages){
+            const episodeDataArray = await this.client.getAllMatchesInPage(this.collection,prepareQuery,page-1);
+            const fullUrl = this.getFullUrl(baseUrl,query);
+            const { prev, next } = this.getPrevAndNextUrls(page,count,fullUrl,prepareQuery);
+            pageResults = {
+                "info":{ count, pages, next, prev },
+                "reults": episodeDataArray,
+            }
+        }else{
+            pageResults = { 'error': 'There is nothing here' };
+        }
+
+        return pageResults
+    }
+
+    getPrevAndNextUrls(page,count,fullUrl){
+        const next = (count-(this.pageSize*page))>0? `${fullUrl}page=${page+1}` : null;
+        const prev = (page===1)? null : `${fullUrl}page=${page-1}`;
+
+        return { prev, next };
+    }
+
+    getFullUrl(baseUrl,query){
+        let { name, episode, anime, part, code } = query;
+        let fullUrl = `${baseUrl}?`;
+
+        name && (fullUrl += `name=${name}&`);
+        episode && (fullUrl += `episode=${episode}&`);
+        anime && (fullUrl += `anime=${anime}&`);
+        part && (fullUrl += `part=${part}&`);
+        code && (fullUrl += `code=${code}&`);
+        
+        return fullUrl;
     }
 }
 

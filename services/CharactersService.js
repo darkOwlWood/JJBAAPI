@@ -15,37 +15,10 @@ class CharactersService{
         return characterData;
     }
 
-    async getAllMatchesInPage(){
-        let {page, name, genre, nacionality, age, ageB, ageE } = query;
-        let prepareQuery = {};
+    async getAllMatchesInPage(baseUrl,query = {}){
+        const { page, prepareQuery } = this.prepareMongoQuery(query);
+        const pageResults = await this.getPaginateAnswer(page, baseUrl, query, prepareQuery);
 
-        page = (page && page>1)? page : 1;
-        name && (prepareQuery.name = new RegExp(`^${name}.*`));
-        genre && (prepareQuery.genre = genre);
-        nacionality && (prepareQuery.nacionality = { '$all': nacionality.replace('[','').replace(']','').split(',').map(val => val.trim()) });
-        if(age){
-            prepareQuery.age = parseInt(age);
-        }else if(ageB || ageE){
-            prepareQuery.age['$gte'] = parseInt(ageB);
-            prepareQuery.age['$lte'] = parseInt(ageE);
-        }
-
-        //---
-        const characterDataArray = await this.client.getAllMatchesInPage(this.collection,prepareQuery,page-1);
-        const count = await this.getTotalCharacters(prepareQuery);
-        const next = (count-(this.pageSize*page))>0? `${url}/${this.collection}${this.ObjectToQueryString(prepareQuery)}&page=${page+1}` : null;
-        const prev = (page===1)? null : `${url}/${this.collection}${this.ObjectToQueryString(prepareQuery)}&page=${page-1}`;
-        const pageResults = {
-            "info":{
-                "count": count,
-                "pages": Math.ceil(count/this.pageSize),
-                next,
-                prev,
-            },
-            "reults": characterDataArray,
-        }
-        //---
-        
         return pageResults;
     }
 
@@ -70,11 +43,56 @@ class CharactersService{
         return totalCharacters;
     }
 
-    ObjectToQueryString(ObjectQuery){
-        return `?${Object
-                    .keys(ObjectQuery)
-                    .map( (key) => `${key}=${ObjectQuery[key]}`)
-                    .join('&')}`;
+    prepareMongoQuery(query){
+        let { page, name, genre, nacionality, age } = query;
+        let prepareQuery = {};
+        
+        page = (page && page>1)? page : 1;
+        name && (prepareQuery.name = new RegExp(`^${name}.*`));
+        genre && (prepareQuery.genre = genre);
+        nacionality && (prepareQuery.nacionality = { '$all': nacionality.replace('[','').replace(']','').split(',').map(val => val.trim()) });
+        age && (prepareQuery.age = !Array.isArray(age)? parseInt(age) : { '$gte':parseInt(age[0]), '$lte':parseInt(age[1]) });
+
+        return { page, prepareQuery };
+    }
+
+    async getPaginateAnswer(page, baseUrl, query, prepareQuery){
+        let pageResults = {};
+        const count = await this.getTotalCharacters(prepareQuery);
+        const pages = Math.ceil(count/this.pageSize);
+
+        if(page<=pages){
+            const characterDataArray = await this.client.getAllMatchesInPage(this.collection,prepareQuery,page-1);
+            const fullUrl = this.getFullUrl(baseUrl,query);
+            const { prev, next } = this.getPrevAndNextUrls(page,count,fullUrl,prepareQuery);
+            pageResults = {
+                "info":{ count, pages, next, prev },
+                "reults": characterDataArray,
+            }
+        }else{
+            pageResults = { 'error': 'There is nothing here' };
+        }
+
+        return pageResults
+    }
+
+    getPrevAndNextUrls(page,count,fullUrl){
+        const next = (count-(this.pageSize*page))>0? `${fullUrl}page=${page+1}` : null;
+        const prev = (page===1)? null : `${fullUrl}page=${page-1}`;
+
+        return { prev, next };
+    } 
+
+    getFullUrl(baseUrl,query){
+        let { name, genre, nacionality, age } = query;
+        let fullUrl = `${baseUrl}?`;
+        
+        name && (fullUrl += `name=${name}&`);
+        genre && (fullUrl += `genre=${genre}&`);
+        nacionality && (fullUrl += `nacionality=[${nacionality}]&`);
+        age && (fullUrl += `age=[${age}]&`);
+
+        return fullUrl;
     }
 }
 
