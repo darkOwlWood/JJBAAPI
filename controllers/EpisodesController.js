@@ -2,6 +2,7 @@ const EpisodeService = require('../services/EpisodesService');
 
 class EpisodesController{
     constructor(){
+        this.route = 'episodes';
         this.episodeService = new EpisodeService();
         this.init();
     }
@@ -27,7 +28,7 @@ class EpisodesController{
     async getAllEpisodes(req, res, next){
         const { query, protocol } = req;
         try{
-            const url = `${protocol}://${req.get('host')}`;
+            const url = `${protocol}://${req.get('host')}/${this.route}`;
             const episodesDataArray = await this.episodeService.getAllMatchesInPage(url,query);
             res.json(episodesDataArray);
         }catch(err){
@@ -36,9 +37,10 @@ class EpisodesController{
     }
 
     async insertEpisode(req, res, next){
-        const { body } = req;
+        const { body, protocol } = req;
         try{
-            const insertedId = await this.episodeService.insertEpisode(body);
+            const url = `${protocol}://${req.get('host')}/${this.route}`;
+            const insertedId = await this.episodeService.insertEpisode(url,body);
             req.status(201).json(insertedId);
         }catch(err){
             next(err);

@@ -22,9 +22,11 @@ class CharactersService{
         return pageResults;
     }
 
-    async insertCharacter(characterSchema){
+    async insertCharacter(baseUrl,characterSchema){
         const id = await this.getTotalStands();
-        const { insertedId } = await this.client.insert(this.collection,{ id: ++id ,...characterSchema });
+        const url = `${baseUrl}/${id}`;
+        const created = new Date();
+        const { insertedId } = await this.client.insert(this.collection,{ id: id+1 ,...characterSchema, url, created });
         return { id, insertedId };
     }
 

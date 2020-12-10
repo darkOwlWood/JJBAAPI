@@ -37,9 +37,10 @@ class CharactersController{
     }
     
     async insertCharacter(req, res, next){
-        const { body } = req;
+        const { body, protocol } = req;
         try{
-            const insertedId = await this.charactersService.insertCharacter(body);
+            const url = `${protocol}://${req.get('host')}/${this.route}`;
+            const insertedId = await this.charactersService.insertCharacter(url,body);
             res.status(201).json(insertedId);
         }catch(err){
             next(err);

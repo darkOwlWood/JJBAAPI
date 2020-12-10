@@ -23,9 +23,11 @@ class StandsService{
         return pageResults;
     }
 
-    async insertStand(standSchema){
+    async insertStand(baseUrl,standSchema){
         const id = await this.getTotalStands();
-        const { insertedId } = await this.client.insert(this.collection,{ id: ++id ,...standSchema });
+        const url = `${baseUrl}/${id}`;
+        const created = new Date();
+        const insertedId = await this.client.insert(this.collection,{ id: id+1 ,...standSchema, url, created });
         return { id, insertedId };
     }
 

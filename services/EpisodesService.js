@@ -22,9 +22,11 @@ class EpisodesService{
         return pageResults;
     }
 
-    async insertEpisode(episodeSchema){
+    async insertEpisode(baseUrl,episodeSchema){
         const id = await this.getTotalEpisodes();
-        const { insertedId } = await this.client.insert(this.collection,{ id: ++id ,...episodeSchema });
+        const url = `${baseUrl}/${id}`;
+        const created = new Date();
+        const { insertedId } = await this.client.insert(this.collection,{ id: id+1 ,...episodeSchema, url, created });
         return { id, insertedId };
     }
 
