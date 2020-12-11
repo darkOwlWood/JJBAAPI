@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+const { MainRoute } = require('./routes/MainRoute');
 const { standRoute } = require('./routes/StandsRoute');
 const { charactersRoute } = require('./routes/CharactersRoute');
 const { EpisodesRoute } = require('./routes/EpisodesRoute');
@@ -13,6 +14,7 @@ const { config } = require('./config');
 app.use(bodyParser.json());
 
 //ROUTES
+MainRoute(app);
 standRoute(app);
 charactersRoute(app);
 EpisodesRoute(app);
